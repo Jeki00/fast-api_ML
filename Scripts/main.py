@@ -9,10 +9,6 @@ from nltk.corpus import stopwords
 import re
 
 
-
-
-
-
 app = FastAPI()
 
 def cleaningUlasan(text):
@@ -65,23 +61,23 @@ vectorizer = joblib.load('model/vectorizer.joblib')
 @app.post("/svm", status_code=201)
 async def read_root(input: str = Body(...)):
     inp = preprocessing(input)
-    SVM = joblib.load('model/SVM.joblib')
     inp = vectorizer.transform(inp)
+    SVM = joblib.load('model/SVM.joblib')
 
     return {"ulasan":input,"result":convertToLabel(SVM.predict(inp))}
 
 @app.post("/knn", status_code=201)
 async def read_root(input: str = Body(...)):
     inp = preprocessing(input)
-    KNN = joblib.load('model/KNN.joblib')
     inp = vectorizer.transform(inp)
+    KNN = joblib.load('model/KNN.joblib')
 
     return {"ulasan":input,"result":convertToLabel(KNN.predict(inp))}
 
 @app.post("/lr", status_code=201)
 async def read_root(input: str = Body(...)):
     inp = preprocessing(input)
-    LR = joblib.load('model/LR.joblib')
     inp = vectorizer.transform(inp)
+    LR = joblib.load('model/LR.joblib')
 
     return {"ulasan":input,"result":convertToLabel(LR.predict(inp))}

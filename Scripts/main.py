@@ -68,6 +68,7 @@ async def read_root(input: str = Body(...)):
 
 @app.post("/knn", status_code=201)
 async def read_root(input: str = Body(...)):
+    
     inp = preprocessing(input)
     inp = vectorizer.transform(inp)
     KNN = joblib.load('model/KNN.joblib')
